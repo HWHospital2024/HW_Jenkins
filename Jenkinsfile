@@ -1,3 +1,3 @@
 node{
-  echo 'Welcome jekins'
+  echo 'Welcome jekins from Git'
 }
