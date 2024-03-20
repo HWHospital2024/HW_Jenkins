@@ -14,7 +14,7 @@ pipeline
         {
             steps{
                 sh 'docker build -t hw_hospital_api .'
-                sh ‘nohup docker run -p 3000:3000 hw_hospital_api &’
+                sh 'nohup docker run -p 3000:3000 hw_hospital_api &'
             }
         }
         
