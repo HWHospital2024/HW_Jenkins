@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    environment{
+        DOCKER_TAG = getDockerTag()
+        NEXUS_URL  = "172.31.34.232:8080"
+        IMAGE_URL_WITH_TAG = "${NEXUS_URL}/node-app:${DOCKER_TAG}"
+    }
+
     stages {
         stage('Build') {
             steps {
@@ -65,8 +71,13 @@ pipeline {
         
         stage('Docker build') {   
             steps {
-                sh 'docker build -t hw_hospital_api .'
-                sh 'nohup docker run -p 3000:3000 hw_hospital_api &'
+                sh 'docker build . -t hr3000/hw_hospital_api:${DOCKER_TAG}'
+                 
+            }
+        }:
+        stage('Kubernet deployment'){
+            steps{
+
             }
         }
     }
@@ -78,4 +89,9 @@ pipeline {
         }
     }
     
+}
+
+def getDockerTag(){
+    def tag  = sh script: 'git rev-parse HEAD', returnStdout: true
+    return tag
 }
