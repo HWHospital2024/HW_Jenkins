@@ -82,7 +82,7 @@ pipeline {
                     } 
             }
         }
-        stage('Docker Hub Movement'){
+        stage('Kube deployment'){
             steps{
                     sh "kubectl apply -f deployment.yaml"
                     sh "kubectl apply -f service.yaml" 
