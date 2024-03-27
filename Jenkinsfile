@@ -74,11 +74,6 @@ pipeline {
                 sh 'docker build . -t hr3000/hw_hospital_api:${DOCKER_TAG}'
                  
             }
-        }:
-        stage('Kubernet deployment'){
-            steps{
-
-            }
         }
     }
     post {
