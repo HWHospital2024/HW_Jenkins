@@ -72,7 +72,20 @@ pipeline {
         stage('Docker build') {   
             steps {
                 sh 'docker build . -t hr3000/hw_hospital_api:${DOCKER_TAG}'
-                 
+            }
+        }
+        stage('Docker Hub Movement'){
+            steps{
+                   withCredentials([string(credentialsId: 'Dockerhub', variable: 'dockerHubPWD')]) {
+                    sh "docker login -u hr3000 -p ${dockerHubPWD}"
+                    sh "docker push hr3000/hw_hospital_api:${DOCKER_TAG}"
+                    } 
+            }
+        }
+        stage('Docker Hub Movement'){
+            steps{
+                    sh "kubectl apply -f deployment.yaml"
+                    sh "kubectl apply -f service.yaml" 
             }
         }
     }
